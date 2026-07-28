@@ -12,6 +12,16 @@ dist
 dist-ssr
 *.local
 
+# Local preview logs
+preview-*.log
+preview-*-error.log
+
+# Local browser audit artifacts
+verify-*.mjs
+audit-*.png
+inspect-*.png
+ocr-*.png
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

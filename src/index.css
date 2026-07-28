@@ -1,1 +1,31 @@
-html,body,#root{min-height:100%;width:100%}html{scrollbar-width:none;-ms-overflow-style:none}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0;height:0}body{-webkit-font-smoothing:antialiased}::selection{background:#fff;color:#000}img,video{display:block}a,button{-webkit-tap-highlight-color:transparent}
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+}
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+body {
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background: #fff;
+  color: #000;
+}
+img,
+video {
+  display: block;
+}
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}

@@ -1,18 +1,90 @@
-# React + Vite
+# Vencuts
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Cinematic website for Vencuts Media, built with React, Vite, GSAP, and selective React Three Fiber.
 
-Currently, two official plugins are available:
+## Routes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `/` — Home
+- `/showreel` — Full-screen official showreel
+- `/team` — Team
+- `/contact` — Project brief form
+- `/about` and `/about-us` — Team aliases
 
-## React Compiler
+## Project structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```text
+src/
+├── components/
+│   ├── Intro.jsx          # Loader and CUT transition
+│   └── Logo.jsx           # Shared Vencuts logo link
+├── data/
+│   └── site.js            # Navigation, media paths, logos, team, services
+├── pages/
+│   ├── ContactPage.jsx
+│   ├── HomePage.jsx
+│   ├── ShowreelPage.jsx
+│   └── TeamPage.jsx
+├── App.jsx                # Lightweight pathname router
+├── App.css                # Site styles and responsive rules
+└── main.jsx               # React entry point
+```
 
-## Expanding the Oxlint configuration
+Public media is organised under:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```text
+public/
+├── assets/
+│   └── clients/           # Approved client logo artwork
+└── media/
+    ├── showreel/          # Official showreel and poster
+    ├── studio/            # Temporary studio clips
+    └── team/              # Approved team media
+```
 
-# Vencuts-Mvp
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Quality checks
+
+```bash
+npm run format:check
+npm run lint
+npm run build
+```
+
+To automatically format supported files:
+
+```bash
+npm run format
+```
+
+## Production preview
+
+```bash
+npm run build
+npm run preview -- --port 3000 --host 0.0.0.0
+```
+
+## Responsive targets
+
+The primary routes are audited at:
+
+- Desktop: `1440 × 900`
+- iPad Pro: `1024 × 1366`
+- iPad: `768 × 1024`
+- Phone: `390 × 844`
+- Small phone: `360 × 800`
+
+## Deployment
+
+The repository is connected to GitHub at:
+
+```text
+https://github.com/Sudo-Sapient/Vencuts-Mvp.git
+```
+
+`vercel.json` rewrites direct route requests to `index.html` so the pathname router works on Vercel. A push to `main` triggers a production deployment when Vercel Git integration is enabled.
