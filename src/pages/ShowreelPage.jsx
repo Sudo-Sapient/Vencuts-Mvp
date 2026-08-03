@@ -1,14 +1,26 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Menu, Play, Volume2, VolumeX, X } from "lucide-react";
+import {
+  ArrowUpRight,
+  Maximize,
+  Menu,
+  Minimize,
+  Play,
+  Volume2,
+  VolumeX,
+  X,
+} from "lucide-react";
 import Logo from "../components/Logo";
 import { media, navItems } from "../data/site";
 
 export default function ShowreelPage() {
+  const screen = useRef();
   const video = useRef();
   const [menu, setMenu] = useState(false);
   const [muted, setMuted] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [entered, setEntered] = useState(false);
 
   useEffect(() => {
     const film = video.current;
@@ -20,6 +32,45 @@ export default function ShowreelPage() {
       film.play();
     });
   }, []);
+
+  const enterCinema = () => {
+    setEntered(true);
+    enterFullscreen();
+    const film = video.current;
+    if (film) {
+      film.muted = false;
+      setMuted(false);
+      film.currentTime = 0;
+      film.play().catch(() => {
+        film.muted = true;
+        setMuted(true);
+        film.play();
+      });
+      setPlaying(true);
+    }
+  };
+
+  useEffect(() => {
+    const onChange = () => setFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", onChange);
+    return () => document.removeEventListener("fullscreenchange", onChange);
+  }, []);
+
+  const enterFullscreen = () => {
+    const el = screen.current;
+    if (!el) return;
+    const request = el.requestFullscreen || el.webkitRequestFullscreen;
+    request?.call(el).catch(() => {});
+  };
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) {
+      (document.exitFullscreen || document.webkitExitFullscreen)?.call(
+        document,
+      );
+    } else {
+      enterFullscreen();
+    }
+  };
 
   const togglePlayback = () => {
     if (!video.current) return;
@@ -74,7 +125,21 @@ export default function ShowreelPage() {
           </a>
         ))}
       </div>
-      <section className="cinema-screen">
+      {!entered && (
+        <button type="button" className="cinema-enter" onClick={enterCinema}>
+          <span className="cinema-enter-kicker">
+            VENCUTS · OFFICIAL SHOWREEL
+          </span>
+          <span className="cinema-enter-play">
+            <Play fill="currentColor" />
+          </span>
+          <span className="cinema-enter-label">Enter the screening room</span>
+          <span className="cinema-enter-hint">
+            Full screen · Sound on · 02:06
+          </span>
+        </button>
+      )}
+      <section className="cinema-screen" ref={screen}>
         <video
           ref={video}
           src={media.reel}
@@ -83,6 +148,7 @@ export default function ShowreelPage() {
           playsInline
           preload="auto"
           poster="/media/showreel/vencuts-showreel-poster.jpg"
+          onClick={togglePlayback}
           onTimeUpdate={(e) =>
             setProgress(
               e.currentTarget.duration
@@ -114,6 +180,13 @@ export default function ShowreelPage() {
             aria-label={muted ? "Turn sound on" : "Mute showreel"}
           >
             {muted ? <VolumeX /> : <Volume2 />}
+          </button>
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            aria-label={fullscreen ? "Exit full screen" : "Watch full screen"}
+          >
+            {fullscreen ? <Minimize /> : <Maximize />}
           </button>
         </div>
         <div className="cinema-progress">

@@ -328,6 +328,7 @@ export default function HomePage() {
               <span>EXPLORE</span>
               <a href="#top">Home</a>
               <a href="#showreel">Showreel</a>
+              <a href="/work">Work</a>
               <a href="/team">Team</a>
             </div>
             <div>
