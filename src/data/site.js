@@ -119,80 +119,70 @@ export const teamMembers = [
   },
 ];
 
-const workTypes = [
-  "Brand Film",
-  "Launch Explainer",
-  "Product Video",
-  "Motion Graphics",
-  "Podcast",
-  "Talking Head",
-  "Video Production",
-  "Content Series",
-];
-
-const placeholderThumbs = [
-  "/media/work-01.jpg",
-  "/media/work-02.jpg",
-  "/media/work-03.jpg",
-  "/media/work-04.jpg",
-  "/media/work-05.jpg",
-  "/media/showreel/vencuts-showreel-poster.jpg",
-];
-
-// Built from the official client list. Replace titles/types/media with real project details when ready.
-export const workProjects = clientLogos.map((client, index) => ({
-  client: client.name,
-  slug: client.slug,
-  title: "Selected Work",
-  type: workTypes[index % workTypes.length],
-  thumb: `/assets/clients/${client.file}`,
-  fit: client.fit,
-  href: `/work/${client.slug}`,
-  summary:
-    "A focused collaboration with Vencuts — story, pace and final cut shaped together.",
-  projects: [
-    {
-      title: `${client.name} · Lead Film`,
-      type: workTypes[index % workTypes.length],
-      status: "Placeholder",
-      thumb: placeholderThumbs[index % placeholderThumbs.length],
-    },
-    {
-      title: `${client.name} · Cut 02`,
-      type: workTypes[(index + 2) % workTypes.length],
-      status: "Placeholder",
-      thumb: placeholderThumbs[(index + 1) % placeholderThumbs.length],
-    },
-    {
-      title: `${client.name} · Social Cut`,
-      type: workTypes[(index + 4) % workTypes.length],
-      status: "Placeholder",
-      thumb: placeholderThumbs[(index + 2) % placeholderThumbs.length],
-    },
+const categoryDefinitions = [
+  [
+    "Brand Film",
+    "brand-film",
+    "Brand stories shaped for a cinematic, lasting first impression.",
   ],
-}));
-
-export function getWorkProject(slug) {
-  return workProjects.find((project) => project.slug === slug) || null;
-}
-
-const testimonialQuotes = [
-  "Clear process, strong final cut, and a team that stayed close to every frame.",
-  "The collaboration felt end to end — from first idea to a delivery people remembered.",
-  "Sharp turnaround, clean communication, and a final film that felt intentional.",
-  "They understood the brand quickly and shaped the edit with real care.",
-  "A simple, focused process that made the story land with more clarity.",
-  "The team treated every detail seriously — pace, tone, and the final export.",
+  [
+    "Launch Explainer",
+    "launch-explainer",
+    "Clear launch films that introduce the product, idea and reason to care.",
+  ],
+  [
+    "Product Videos",
+    "product-videos",
+    "Product-led films focused on use, detail and visual clarity.",
+  ],
+  [
+    "Motion Graphics",
+    "motion-graphics",
+    "Motion-led storytelling for ideas that need to be seen in action.",
+  ],
+  [
+    "Podcasts",
+    "podcasts",
+    "Long-form conversations and the short-form cuts built around them.",
+  ],
+  [
+    "Talking Head",
+    "talking-head",
+    "Direct-to-camera stories edited for pace, clarity and attention.",
+  ],
+  [
+    "Video Production",
+    "video-production",
+    "End-to-end production from the first frame through final delivery.",
+  ],
+  [
+    "Content Series",
+    "content-series",
+    "Repeatable video formats designed to build a consistent audience.",
+  ],
 ];
 
-// PLACEHOLDER quotes only — swap with approved client testimonials when available.
-export const testimonials = clientLogos.map((client, index) => ({
-  quote: testimonialQuotes[index % testimonialQuotes.length],
-  name: client.name,
-  role: "Client",
-  logo: `/assets/clients/${client.file}`,
-  slug: client.slug,
-}));
+const projectSlots = [
+  { label: "Project 01", format: "Featured film", ratio: "16:9" },
+  { label: "Project 02", format: "Supporting cut", ratio: "16:9" },
+  { label: "Project 03", format: "Vertical cut", ratio: "9:16" },
+  { label: "Project 04", format: "Additional media", ratio: "Flexible" },
+];
+
+export const workCategories = categoryDefinitions.map(
+  ([name, slug, description], index) => ({
+    index: String(index + 1).padStart(2, "0"),
+    name,
+    slug,
+    description,
+    href: `/work/${slug}`,
+    slots: projectSlots.map((slot) => ({ ...slot, status: "Awaiting media" })),
+  }),
+);
+
+export function getWorkCategory(slug) {
+  return workCategories.find((category) => category.slug === slug) || null;
+}
 
 export const contactServices = [
   "Content Marketing",

@@ -1,5 +1,5 @@
 import "./App.css";
-import ClientWorkPage from "./pages/ClientWorkPage";
+import WorkCategoryPage from "./pages/WorkCategoryPage";
 import ContactPage from "./pages/ContactPage";
 import HomePage from "./pages/HomePage";
 import ShowreelPage from "./pages/ShowreelPage";
@@ -11,7 +11,7 @@ function App() {
   const workMatch = pathname.match(/^\/work\/([^/]+)\/?$/);
 
   if (pathname === "/showreel") return <ShowreelPage />;
-  if (workMatch) return <ClientWorkPage slug={workMatch[1]} />;
+  if (workMatch) return <WorkCategoryPage slug={workMatch[1]} />;
   if (pathname === "/work") return <WorkPage />;
   if (pathname === "/contact") return <ContactPage />;
   if (["/team", "/about", "/about-us"].includes(pathname)) {

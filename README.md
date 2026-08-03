@@ -6,6 +6,15 @@ Cinematic website for Vencuts Media, built with React, Vite, GSAP, and selective
 
 - `/` — Home
 - `/showreel` — Full-screen official showreel
+- `/work` — Work category index
+- `/work/brand-film`
+- `/work/launch-explainer`
+- `/work/product-videos`
+- `/work/motion-graphics`
+- `/work/podcasts`
+- `/work/talking-head`
+- `/work/video-production`
+- `/work/content-series`
 - `/team` — Team
 - `/contact` — Project brief form
 - `/about` and `/about-us` — Team aliases
@@ -23,7 +32,9 @@ src/
 │   ├── ContactPage.jsx
 │   ├── HomePage.jsx
 │   ├── ShowreelPage.jsx
-│   └── TeamPage.jsx
+│   ├── TeamPage.jsx
+│   ├── WorkCategoryPage.jsx
+│   └── WorkPage.jsx
 ├── App.jsx                # Lightweight pathname router
 ├── App.css                # Site styles and responsive rules
 └── main.jsx               # React entry point

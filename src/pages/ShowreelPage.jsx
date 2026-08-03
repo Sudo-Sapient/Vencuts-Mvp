@@ -35,8 +35,13 @@ export default function ShowreelPage() {
 
   const enterCinema = () => {
     setEntered(true);
-    enterFullscreen();
     const film = video.current;
+    const isIOSVideoFullscreen =
+      film && typeof film.webkitEnterFullscreen === "function";
+
+    if (isIOSVideoFullscreen) film.webkitEnterFullscreen();
+    else enterFullscreen();
+
     if (film) {
       film.muted = false;
       setMuted(false);
@@ -63,6 +68,16 @@ export default function ShowreelPage() {
     request?.call(el).catch(() => {});
   };
   const toggleFullscreen = () => {
+    const film = video.current;
+    if (
+      !document.fullscreenElement &&
+      film &&
+      typeof film.webkitEnterFullscreen === "function"
+    ) {
+      film.webkitEnterFullscreen();
+      return;
+    }
+
     if (document.fullscreenElement) {
       (document.exitFullscreen || document.webkitExitFullscreen)?.call(
         document,
